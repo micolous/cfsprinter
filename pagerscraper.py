@@ -1,7 +1,20 @@
 #!/usr/bin/env python
 """
 Library to scrape events from the CFS pager feed (South Australian Country Fire Service).
+Copyright 2010 - 2011 Michael Farrell <http://micolous.id.au/>
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import re
@@ -9,7 +22,7 @@ from time import sleep, time
 from datetime import datetime
 from urllib2 import urlopen
 from datetime import datetime
-
+from xml.sax.saxutils import unescape
 try:
 	# python >=2.6
 	import json
@@ -65,7 +78,7 @@ msg: The full message from the server, minus HTML tags.
 				if result == None:
 					feed_handler(good_parse=False, msg=strip_tags(message))
 				else:
-					feed_handler(good_parse=True, date=d, unit=result.group('unit'), msg=result.group('msg'))
+					feed_handler(good_parse=True, date=d, unit=result.group('unit'), msg=unescape(result.group('msg')))
 
 	def update_forever(self, feed_handler):
 		"""\
