@@ -6,7 +6,7 @@ except ImportError:
 	print "Warning: py2exe is not installed.  (Though it may not be available on your platform.)"
 
 
-requires = []
+requires = ['win32api']
 if version < '2.6.0':
 	requires.append("simplejson")
 
@@ -15,7 +15,7 @@ setup(
 	version='0.1.0',
 	author='Michael Farrell',
 	url='http://github.com/micolous/cfsprinter',
-	py_modules=['browsersupport', 'mappingsupport', 'pagerscraper', 'pagerprinter'],
+	py_modules=['browsersupport', 'mappingsupport', 'pagerscraper', 'pagerprinter', 'plugins.winprint', 'plugins.lpdprint', 'plugins'],
 	data_files=[
 		('doc', [
 			'pagerprinter.example.ini',
