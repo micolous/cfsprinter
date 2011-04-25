@@ -37,7 +37,7 @@ Address: %(address)s
 When: %(when)s
 
 %(msg)s
-""" % dict(msg=msg, unit=unit, address=address, when=when.ctime())
+""" % dict(msg=msg, unit=unit, address=address, when=when.ctime()))
 			
 			if printer != None:
 				printer = '/d:"%s"' % printer

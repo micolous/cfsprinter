@@ -36,7 +36,7 @@ Address: %(address)s
 When: %(when)s
 
 %(msg)s
-"""  % dict(msg=msg, unit=unit, address=address, when=when.ctime())
+"""  % dict(msg=msg, unit=unit, address=address, when=when.ctime()))
 		
 		lpr.stdin.flush()
 		lpr.stdin.close()
