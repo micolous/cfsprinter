@@ -27,7 +27,7 @@ else:
 	class WinPrintPlugin(BasePlugin):
 		"""This plugin prints out a text document on Windows of the details."""
 		def execute(self, msg, unit, address, when, printer):
-			filename = tempfile.mktemp('.txt')
+			filename = mktemp('.txt')
 			
 			open(filename, 'w').write("""\
 Got a page!
