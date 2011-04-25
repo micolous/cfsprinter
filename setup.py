@@ -25,8 +25,8 @@ setup(
 		]),
 		# UGLY HACK
 		('plugins', [
-			'winprint.py',
-			'lpdprint.py'
+			'plugins/winprint.py',
+			'plugins/lpdprint.py'
 		]),
 	],
 	requires=requires,
