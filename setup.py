@@ -14,19 +14,12 @@ setup(
 	version='0.1.1',
 	author='Michael Farrell',
 	url='http://github.com/micolous/cfsprinter',
-	py_modules=['browsersupport', 'mappingsupport', 'pagerscraper', 'pagerprinter'],
-	packages=['plugins'],
-	includes=['plugins.winprint', 'plugins.lpdprint'],
+        options=dict(py2exe=dict(includes=['plugins.winprint', 'plugins.lpdprint'])),
 	data_files=[
 		('doc', [
 			'pagerprinter.example.ini',
 			'README.txt',
 			'LICENSE.txt'
-		]),
-		# UGLY HACK
-		('plugins', [
-			'plugins/winprint.py',
-			'plugins/lpdprint.py'
 		]),
 	],
 	requires=requires,
