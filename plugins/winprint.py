@@ -41,7 +41,7 @@ When: %(when)s
 			if printer != None:
 				printer = '/d:"%s"' % printer
 				
-			win32api.ShellExecute(
+			ShellExecute(
 				0,
 				'print',
 				filename,
