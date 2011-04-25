@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from pagerscraper import get_scraper
 from browsersupport import get_browser
 from mappingsupport import get_map
+from plugins import get_plugin
 from ConfigParser import ConfigParser
 from sys import argv
 
@@ -49,6 +50,10 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 	if c.has_option('pagerprinter', 'mapper'):
 		mapper = c.get('pagerprinter', 'mapper')
 	
+	plugins = []
+	if c.has_option('pagerprinter', 'plugins'):
+		plugins = [get_plugin(x.strip()) for x in c.get('pagerprinter', 'plugins').lower().split(',')]
+		
 	mapper = get_map(mapper)
 	
 	# special case: all units.
@@ -88,6 +93,14 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 						
 						# sending to browser
 						browser.print_url(url, printer)
+						
+						# now, send to plugins
+						for plugin in plugins:
+							try:
+								plugin.execute(msg, unit, addr, date, printer)
+							except Exception, e:
+								print "Exception caught in plugin %s" % type(plugin)
+								print e
 					else:
 						print "- WARNING: End trigger not found!  Skipping..."
 					
