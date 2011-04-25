@@ -54,15 +54,15 @@ The following mapping backends are available:
 
 There are two plugins included:
 
-- lpdprint: Prints the page as text on Linux and Mac OS X.  It uses the command-line lpr utility, and has been tested only using CUPS (not actual LPR).
-- winprint: Prints the page as text on Windows.  This requires the win32all package.
+ * lpdprint: Prints the page as text on Linux and Mac OS X.  It uses the command-line lpr utility, and has been tested only using CUPS (not actual LPD).  This probably works on Windows too, if you're using Cygwin (or have lpr).
+ * winprint: Prints the page as text on Windows.  This requires the win32all package.
 
 
-TODO::
+== TODO ==
 
-- Fix google maps backend so it works with images.
-- Add other mapping backends.
-- Add other browser backends.
-- ???
-- Testing...
+ * Fix google maps backend so it works with images.
+ * Add other mapping backends.
+ * Add other browser backends.
+ * ???
+ * Testing...
 
