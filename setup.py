@@ -12,10 +12,10 @@ if version < '2.6.0':
 
 setup(
 	name='cfsprinter',
-	version='0.1.0',
+	version='0.1.1',
 	author='Michael Farrell',
 	url='http://github.com/micolous/cfsprinter',
-	py_modules=['browsersupport', 'mappingsupport', 'pagerscraper', 'pagerprinter', 'plugins.winprint', 'plugins.lpdprint', 'plugins'],
+	py_modules=['browsersupport', 'mappingsupport', 'pagerscraper', 'pagerprinter', 'plugins', 'plugins.lpdprint', 'plugins.winprint'],
 	data_files=[
 		('doc', [
 			'pagerprinter.example.ini',
