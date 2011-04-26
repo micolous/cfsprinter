@@ -39,12 +39,16 @@ When: %(when)s
 %(msg)s
 """ % dict(msg=msg, unit=unit, address=address, when=when.ctime()))
 			
-			if printer != None:
-				printer = '/d:"%s"' % printer
+			
+			if printer == None:
+				action = 'print'
+			else:
+				action = 'printto'
+				printer = '"%s"' % printer
 				
 			ShellExecute(
 				0,
-				'print',
+				action,
 				filename,
 				printer,
 				'.',
@@ -52,5 +56,3 @@ When: %(when)s
 			)
 		
 	PLUGIN = WinPrintPlugin
-	
-
