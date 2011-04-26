@@ -20,6 +20,12 @@ You should have received a copy of the GNU General Public License along with thi
  * On Windows, the Python win32all package.  http://sourceforge.net/projects/pywin32/
  * On Firefox, the cmdlnprint extension.  http://sites.google.com/site/torisugari/commandlineprint2
 
+## Getting It ##
+
+The source code for the program is available at https://github.com/micolous/cfspager/
+
+A git repository of the latest code is available at git://github.com/micolous/cfspager.git
+
 ## Configuration ##
 
 Configuration is done in pagerprinter.ini.  There is an example configuration

@@ -20,7 +20,7 @@ from pagerscraper import get_scraper
 from browsersupport import get_browser
 from mappingsupport import get_map
 from plugins import get_plugin
-from ConfigParser import ConfigParser
+from configparser_plus import ConfigParserPlus
 from sys import argv
 
 def main(fn):
@@ -29,26 +29,34 @@ pagerprinter v0.1
 Copyright 2011 Michael Farrell <http://micolous.id.au/>
 """
 	# parse config
-	c = ConfigParser()
+	c = ConfigParserPlus({'pagerprinter':
+		{
+			'update-freq': 30,
+			'backend': 'sacfs',
+			'browser': 'firefox',
+			'browser-exec': 'firefox',
+			'browser-wait': 20,
+			'trigger': 'RESPOND',
+			'trigger-end': 'MAP',
+			'mapper': 'google',
+			'printer': None,
+		}
+	
+	})
 	c.readfp(open(fn, 'rb'))
 	
 	# get a scraper instance
-	scraper = get_scraper(c.get('pagerprinter', 'backend'))
+	scraper = get_scraper(c.get('pagerprinter', 'backend'))(c.getint('pagerprinter', 'update-freq'))
 	
 	# get a browser helper instance
-	browser = get_browser(c.get('pagerprinter', 'browser'))(c.get('pagerprinter', 'browser-exec'))
+	browser = get_browser(c.get('pagerprinter', 'browser'))(c.get('pagerprinter', 'browser-exec'), c.getint('pagerprinter', 'browser-wait'))
 	
 	trigger = c.get('pagerprinter', 'trigger').lower().strip()
 	trigger_end = c.get('pagerprinter', 'trigger-end').lower().strip()
 	my_unit = c.get('pagerprinter', 'unit').lower().strip()
 	
-	printer = None
-	if c.has_option('pagerprinter', 'printer'):
-		printer = c.get('pagerprinter', 'printer')
-	
-	mapper = 'google'
-	if c.has_option('pagerprinter', 'mapper'):
-		mapper = c.get('pagerprinter', 'mapper')
+	printer = c.get('pagerprinter', 'printer')
+	mapper = c.get('pagerprinter', 'mapper')
 	
 	plugins = []
 	if c.has_option('pagerprinter', 'plugins'):

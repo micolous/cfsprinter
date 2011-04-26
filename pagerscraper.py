@@ -38,9 +38,10 @@ def strip_tags(value):
 class CFSPagerScraper(object):
 	feed = 'http://paging.sacfs.org/feed1/live/ajax/update.php?f='
 	last_update = int(time()) - 3600
-	update_frequency = 30
 	message_parser = re.compile(r'<td class="date">(?P<date>.+)</td>\s*<td class="message">\s*(?P<msg>.+)\sw*<span class="name">-\s*(?P<unit>.+)\s*</span></td></tr>')
-
+	def __init__(self, update_frequency=30):
+		self.update_frequency = int(update_frequency)
+		
 	def update(self, feed_handler):
 		"""
 Pings the feed for new events.  Uses a callback, feed_handler, which is called as follows:
@@ -96,7 +97,7 @@ SCRAPER_MAP = {
 def get_scraper(name):
 	name = name.lower().strip()
 	
-	return SCRAPER_MAP[name]()
+	return SCRAPER_MAP[name]
 
 if __name__ == '__main__':
 	def test_handler(good_parse, **message):

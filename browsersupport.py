@@ -6,18 +6,19 @@ Browser backend support code.
 from subprocess import Popen
 
 class BrowserBackend(object):
-	def __init__(self, browser_executable):
+	def __init__(self, browser_executable, browser_delay):
 		self.browser_executable = browser_executable
+		self.browser_delay = browser_delay
 
 class Firefox(BrowserBackend):
 	"""Print backend support for Firefox / Iceweasel, requires extension http://sites.google.com/site/torisugari/commandlineprint2"""
 	
 	def print_url(self, url, printer=None):
 		if printer == None:
-			Popen((self.browser_executable, '-print', url, '-printdelay', '20'))
+			Popen((self.browser_executable, '-print', url, '-printdelay', str(self.browser_delay)))
 			
 		else:
-			Popen((self.browser_executable, '-print', url, '-printprinter', printer, '-printdelay', '20'))
+			Popen((self.browser_executable, '-print', url, '-printprinter', printer, '-printdelay', str(self.browser_delay)))
 
 class TestBrowser(BrowserBackend):
 	def print_url(self, url, printer=None):
