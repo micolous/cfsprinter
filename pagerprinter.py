@@ -83,7 +83,7 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 						addr = addr.split(trigger_end)[0]
 						
 						# now split that up into parts, discarding the first which is a description of the event
-						addr = ','.join(addr.split(',')[1:])
+						addr = ','.join(addr.split(',')[:-2])
 						
 						# we have an address.  feed it to the mapping engine
 						url = mapper.get_url(home, addr)

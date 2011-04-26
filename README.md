@@ -36,8 +36,18 @@ On Windows, you'll need to set the full path to Firefox in the "browser-exec" se
 
 The following mapping backends are available:
 
- * google: Prints out a text-based map of directions from Google Maps AU.
- * googlescreen: Prints out the graphical, non-printer-friendly map from Google Maps AU.
+ * google: Prints out a text-based map of directions from Google Maps AU.  Google will try to replace location names in searches, which can be misleading, and sometimes entirely messes up directions including location names.  This is the default option.
+ * googlescreen: Same as `google`, except with the graphical, non-printer-friendly map (like the one you normally see in your browser).
+
+Some other mapping options under investigation:
+
+ * bing: Supplies API, supplies website.  It doesn't seem easy to generate printer-friendly maps from the site like I can with Google Maps.  API requires access keys and registration.
+ * osm: Doesn't provide routers (will require running a route server).
+
+Mapping sites that are impossible:
+
+ * whereis: Provides no public (free) API, generates "shortlinks" (ie: it saves your searches into a database, and it is assigned an ID) and uses interesting referrer and Javascript tricks in order to generate printer-friendly pages.  Sensis/Whereis data is used on Google Maps anyway (which is much more accessible), so not a great loss.
+ * yahoo: Doesn't provide navigation.
 
 ## Plugins ##
 
