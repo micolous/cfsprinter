@@ -20,14 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from plugins import BasePlugin
 from subprocess import Popen, PIPE
 
+
 class LPDPrintPlugin(BasePlugin):
-	"""This plugin prints out a text document using LPD/CUPS of the details, using the lpr command."""
+	"""\
+This plugin prints out a text document using LPD/CUPS of the details, using the
+lpr command.
+"""
 	def execute(self, msg, unit, address, when, printer):
 		if printer != None:
 			lpr = Popen(('lpr', '-P', printer), stdin=PIPE)
 		else:
 			lpr = Popen('lpr', stdin=PIPE)
-		
+
 		lpr.stdin.write("""\
 Got a page!
 
@@ -36,11 +40,9 @@ Address: %(address)s
 When: %(when)s
 
 %(msg)s
-"""  % dict(msg=msg, unit=unit, address=address, when=when.ctime()))
-		
+""" % dict(msg=msg, unit=unit, address=address, when=when.ctime()))
+
 		lpr.stdin.flush()
 		lpr.stdin.close()
-		
+
 PLUGIN = LPDPrintPlugin
-
-

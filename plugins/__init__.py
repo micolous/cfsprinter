@@ -18,7 +18,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from sys import modules
 
+
 class BasePlugin(object):
+	def configure(self, config):
+		"""\
+Passes ConfigParserPlus instance to plugins so that they can be configured.  By
+default this does nothing.
+"""
+		pass
+
 	def execute(self, msg, unit, address, when, printer):
 		"""Executed when there is a new message matching filters"""
 		print "WARNING: BasePlugin default execute called!"
@@ -33,5 +41,3 @@ def get_plugin(name):
 	name = 'plugins.' + name.lower().strip()
 	__import__(name)
 	return modules[name].PLUGIN()
-
-

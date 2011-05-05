@@ -24,11 +24,12 @@ except:
 	PLUGIN = None
 else:
 	from tempfile import mktemp
+
 	class WinPrintPlugin(BasePlugin):
 		"""This plugin prints out a text document on Windows of the details."""
 		def execute(self, msg, unit, address, when, printer):
 			filename = mktemp('.txt')
-			
+
 			open(filename, 'w').write("""\
 Got a page!
 
@@ -38,14 +39,13 @@ When: %(when)s
 
 %(msg)s
 """ % dict(msg=msg, unit=unit, address=address, when=when.ctime()))
-			
-			
+
 			if printer == None:
 				action = 'print'
 			else:
 				action = 'printto'
 				printer = '"%s"' % printer
-				
+
 			ShellExecute(
 				0,
 				action,
@@ -54,5 +54,5 @@ When: %(when)s
 				'.',
 				0
 			)
-		
+
 	PLUGIN = WinPrintPlugin

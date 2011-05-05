@@ -18,26 +18,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from urllib import urlencode
 
+
 class GoogleMaps(object):
 	def get_url(self, start, finish):
-		return u'http://maps.google.com.au/maps?%s' % urlencode((('f', 'q'), ('saddr', start), ('daddr', finish), ('pw', '2')))
+		return u'http://maps.google.com.au/maps?%s' % urlencode((
+			('f', 'q'),
+			('saddr', start),
+			('daddr', finish),
+			('pw', '2')
+		))
+
 
 class GoogleMapsScreen(object):
 	def get_url(self, start, finish):
-		return u'http://maps.google.com.au/maps?%s' % urlencode((('f', 'q'), ('source', 's_d'), ('saddr', start), ('daddr', finish)))
+		return u'http://maps.google.com.au/maps?%s' % urlencode((
+			('f', 'q'),
+			('source', 's_d'),
+			('saddr', start),
+			('daddr', finish)
+		))
 
 
 MAP_MAP = {
 	'google': GoogleMaps,
-	'gmaps': GoogleMaps,
-	'googlemaps': GoogleMaps,
 	'googlescreen': GoogleMapsScreen,
-	'googlemapsscreen': GoogleMapsScreen,
-	'gmapscreen': GoogleMapsScreen,
 }
+
 
 def get_map(name):
 	name = name.lower().strip()
 	return MAP_MAP[name]()
-
-

@@ -24,30 +24,37 @@ except ImportError:
 	# py2
 	from ConfigParser import SafeConfigParser, NoOptionError
 
+
 class ConfigParserPlus(SafeConfigParser):
-	"""
-ConfigParserPlus changes the behaviour of the SafeConfigParser constructor so it takes in a two-dimensional dict of defaults (which is much simpler to handle).  You could also pass it something that implements a 2D dict.
+	"""\
+ConfigParserPlus changes the behaviour of the SafeConfigParser constructor
+so it takes in a two-dimensional dict of defaults (which is much simpler to
+handle).  You could also pass it something that implements a 2D dict.
 
-has_option performs identically to the underlying SafeConfigParser -- if an option is not in the configuration, it will return False (even if a default is available).
+has_option performs identically to the underlying SafeConfigParser -- if an
+option is not in the configuration, it will return False (even if a default
+is available).
 
-Default values will be cast for getint and getfloat, unless the default value is None.  get and getfloat will not cast values.
+Default values will be cast for getint and getfloat, unless the default value
+is None.  get and getfloat will not cast values.
 	"""
-	
+
 	def __init__(self, defaults, allow_no_value=False):
 		SafeConfigParser.__init__(self)
-		self._defaults = defaults
+		# apparently self._defaults is used by the default implementation.
+		self._cfp_defaults = defaults
 		self._allow_no_value = allow_no_value
-	
+
 	def defaults(self):
 		"""Return the 2D dict that is providing defaults.."""
-		return self._defaults
-		
+		return self._cfp_defaults
+
 	def _get_with_default(self, section, option, method, coercion=None):
 		try:
 			return getattr(SafeConfigParser, method)(self, section, option)
 		except NoOptionError:
 			try:
-				v = self._defaults[section][option]
+				v = self._cfp_defaults[section][option]
 			except KeyError, ex:
 				if self._allow_no_value:
 					return None
@@ -57,16 +64,15 @@ Default values will be cast for getint and getfloat, unless the default value is
 				if coercion != None and v != None:
 					v = coercion(v)
 				return v
-	
+
 	def get(self, section, option):
 		return self._get_with_default(section, option, 'get')
-	
+
 	def getint(self, section, option):
 		return self._get_with_default(section, option, 'getint', int)
-		
+
 	def getboolean(self, section, option):
 		return self._get_with_default(section, option, 'getboolean')
-	
+
 	def getfloat(self, section, option):
 		return self._get_with_default(section, option, 'getfloat', float)
-

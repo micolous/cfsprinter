@@ -23,6 +23,7 @@ from plugins import get_plugin
 from configparser_plus import ConfigParserPlus
 from sys import argv
 
+
 def main(fn):
 	print """\
 pagerprinter v0.1
@@ -41,37 +42,52 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 			'mapper': 'google',
 			'printer': None,
 		}
-	
 	})
 	c.readfp(open(fn, 'rb'))
-	
+
 	# get a scraper instance
-	scraper = get_scraper(c.get('pagerprinter', 'backend'))(c.getint('pagerprinter', 'update-freq'))
-	
+	scraper = get_scraper(
+		c.get('pagerprinter', 'backend')
+	)(
+		c.getint('pagerprinter', 'update-freq')
+	)
+
 	# get a browser helper instance
-	browser = get_browser(c.get('pagerprinter', 'browser'))(c.get('pagerprinter', 'browser-exec'), c.getint('pagerprinter', 'browser-wait'))
-	
+	browser = get_browser(
+		c.get('pagerprinter', 'browser')
+	)(
+		c.get('pagerprinter', 'browser-exec'),
+		c.getint('pagerprinter', 'browser-wait')
+	)
+
 	trigger = c.get('pagerprinter', 'trigger').lower().strip()
 	trigger_end = c.get('pagerprinter', 'trigger-end').lower().strip()
 	my_unit = c.get('pagerprinter', 'unit').lower().strip()
-	
+
 	printer = c.get('pagerprinter', 'printer')
 	mapper = c.get('pagerprinter', 'mapper')
-	
+
 	plugins = []
 	if c.has_option('pagerprinter', 'plugins'):
-		plugins = [get_plugin(x.strip()) for x in c.get('pagerprinter', 'plugins').lower().split(',')]
-		
+		plugins = [
+			get_plugin(x.strip())
+			for x
+			in c.get('pagerprinter', 'plugins').lower().split(',')
+		]
+
+		for plugin in plugins:
+			plugin.configure(c)
+
 	mapper = get_map(mapper)
-	
+
 	# special case: all units.
 	# may result in dupe printouts
 	if my_unit == 'all':
 		my_unit = ''
-	
+
 	# home
 	home = c.get('pagerprinter', 'home')
-	
+
 	# now, lets setup a handler for these events.
 	def page_handler(good_parse, msg, date=None, unit=None):
 		if good_parse:
@@ -86,22 +102,23 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 					# trigger found
 					# split by trigger and find address nicely.
 					addr = lmsg.split(trigger)[1]
-					
+
 					if trigger_end in lmsg:
 						addr = addr.split(trigger_end)[0]
-						
-						# now split that up into parts, discarding the first which is a description of the event
+
+						# now split that up into parts, discarding the first
+						# which is a description of the event
 						addr = ','.join(addr.split(',')[-2:])
-						
+
 						# we have an address.  feed it to the mapping engine
 						url = mapper.get_url(home, addr)
-						
+
 						print "- Address: %s" % addr
 						print "- URL for directions: %s" % url
-						
+
 						# sending to browser
 						browser.print_url(url, printer)
-						
+
 						# now, send to plugins
 						for plugin in plugins:
 							try:
@@ -111,7 +128,6 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 								print e
 					else:
 						print "- WARNING: End trigger not found!  Skipping..."
-					
 				else:
 					print "- Trigger not found.  Skipping..."
 			else:
@@ -120,14 +136,13 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 			print "ERROR: THIS IS A BUG!!!"
 			print "Couldn't handle the following message, please file a bug report."
 			print repr(msg)
-	
+
 	print "updating forever"
 	scraper.update_forever(page_handler)
-	
+
 
 if __name__ == '__main__':
 	configfile = 'pagerprinter.ini'
-	
 	if len(argv) >= 2:
 		configfile = argv[1]
 	main(configfile)
