@@ -15,7 +15,7 @@ setup(
 	version='0.1.1',
 	author='Michael Farrell',
 	url='http://github.com/micolous/cfsprinter',
-	options=dict(py2exe=dict(includes=['plugins.winprint', 'plugins.lpdprint'])),
+	options=dict(py2exe=dict(includes=['plugins.winprint', 'plugins.lpdprint', 'plugins.skypesms'])),
 	data_files=[
 		('doc', [
 			'pagerprinter.example.ini',
