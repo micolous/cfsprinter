@@ -61,7 +61,7 @@ else:
 
 			# by now skype4py would crash if skype isn't running.
 
-		def configure(self, cp):
+		def configure(self, c):
 			# read in phone numbers we need
 			self.numbers = [
 				x.strip()
