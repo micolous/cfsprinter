@@ -19,7 +19,7 @@ setup(
 	data_files=[
 		('doc', [
 			'pagerprinter.example.ini',
-			'README.txt',
+			'README.md',
 			'LICENSE.txt'
 		]),
 	],
