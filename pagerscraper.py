@@ -27,7 +27,7 @@ from xml.sax.saxutils import unescape
 try:
 	# python >=2.6
 	import json
-except:
+except ImportError:
 	# python <=2.5
 	import simplejson as json
 
