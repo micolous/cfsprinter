@@ -17,9 +17,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from plugins import BasePlugin
+from traceback import print_exc
 try:
 	from win32api import ShellExecute
-except ImportError:
+except ImportError, ex:
+	print_exc()
 	print "NOTICE: winprint could not be loaded on this platform."
 	PLUGIN = None
 else:

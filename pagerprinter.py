@@ -26,7 +26,7 @@ from sys import argv
 
 def main(fn):
 	print """\
-pagerprinter v0.1
+pagerprinter v0.1.3
 Copyright 2011 Michael Farrell <http://micolous.id.au/>
 """
 	# parse config
