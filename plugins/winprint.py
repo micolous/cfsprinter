@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from plugins import BasePlugin
 try:
 	from win32api import ShellExecute
-except:
+except ImportError:
 	print "NOTICE: winprint could not be loaded on this platform."
 	PLUGIN = None
 else:
