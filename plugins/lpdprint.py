@@ -26,11 +26,11 @@ class LPDPrintPlugin(BasePlugin):
 This plugin prints out a text document using LPD/CUPS of the details, using the
 lpr command.
 """
-	def execute(self, msg, unit, address, when, printer):
+	def execute(self, msg, unit, address, when, printer, print_copies):
 		if printer != None:
-			lpr = Popen(('lpr', '-P', printer), stdin=PIPE)
+			lpr = Popen(('lpr', '-#', str(print_copies), '-P', printer), stdin=PIPE)
 		else:
-			lpr = Popen('lpr', stdin=PIPE)
+			lpr = Popen(('lpr', '-#', str(print_copies)), stdin=PIPE)
 
 		lpr.stdin.write("""\
 Got a page!

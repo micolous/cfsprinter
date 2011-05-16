@@ -69,7 +69,7 @@ else:
 				in c.get('skypesms', 'to').lower().split(',')
 			]
 
-		def execute(self, msg, unit, address, when, printer):
+		def execute(self, msg, unit, address, when, printer, print_copies):
 			# lets just send the whole message verbatim.
 			sms = self.skype.CreateSms(smsMessageTypeOutgoing, *self.numbers)
 			sms.Body = "%s: %s - %s" % (when.ctime(), msg, unit)

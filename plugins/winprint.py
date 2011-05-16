@@ -29,7 +29,7 @@ else:
 
 	class WinPrintPlugin(BasePlugin):
 		"""This plugin prints out a text document on Windows of the details."""
-		def execute(self, msg, unit, address, when, printer):
+		def execute(self, msg, unit, address, when, printer, print_copies):
 			filename = mktemp('.txt')
 
 			open(filename, 'w').write("""\
@@ -47,14 +47,15 @@ When: %(when)s
 			else:
 				action = 'printto'
 				printer = '"%s"' % printer
-
-			ShellExecute(
-				0,
-				action,
-				filename,
-				printer,
-				'.',
-				0
-			)
+		
+			for x in range(print_copies):
+				ShellExecute(
+					0,
+					action,
+					filename,
+					printer,
+					'.',
+					0
+				)
 
 	PLUGIN = WinPrintPlugin

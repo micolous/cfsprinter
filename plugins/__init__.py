@@ -27,7 +27,7 @@ default this does nothing.
 """
 		pass
 
-	def execute(self, msg, unit, address, when, printer):
+	def execute(self, msg, unit, address, when, printer, print_copies):
 		"""Executed when there is a new message matching filters"""
 		print "WARNING: BasePlugin default execute called!"
 		print "- Message: %s" % msg
@@ -35,6 +35,7 @@ default this does nothing.
 		print "- Address: %s" % address
 		print "- When: %s" % when
 		print "- Printer: %s" % printer
+		print "- Copies: %s" % print_copies
 
 
 def get_plugin(name):

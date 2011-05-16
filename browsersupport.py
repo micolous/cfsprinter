@@ -4,6 +4,7 @@ Browser backend support code.
 """
 
 from subprocess import Popen
+from time import sleep
 
 
 class BrowserBackend(object):
@@ -17,20 +18,23 @@ class Firefox(BrowserBackend):
 Print backend support for Firefox / Iceweasel, requires extension
 http://sites.google.com/site/torisugari/commandlineprint2
 """
-	def print_url(self, url, printer=None):
-		if printer == None:
-			Popen((
-				self.browser_executable,
-				'-print', url,
-				'-printdelay', str(self.browser_delay)
-			))
-		else:
-			Popen((
-				self.browser_executable,
-				'-print', url,
-				'-printprinter', printer,
-				'-printdelay', str(self.browser_delay)
-			))
+	def print_url(self, url, printer=None, print_copies=1):
+		for x in range(print_copies):
+			if printer == None:
+				Popen((
+					self.browser_executable,
+					'-print', url,
+					'-printdelay', str(self.browser_delay)
+				))
+			else:
+				Popen((
+					self.browser_executable,
+					'-print', url,
+					'-printprinter', printer,
+					'-printdelay', str(self.browser_delay)
+				))
+			if print_copies != 1:
+				sleep(2)
 
 
 class TestBrowser(BrowserBackend):

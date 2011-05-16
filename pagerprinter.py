@@ -41,6 +41,7 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 			'trigger-end': 'MAP',
 			'mapper': 'google',
 			'printer': None,
+			'print-copies': 1,
 		}
 	})
 	c.readfp(open(fn, 'rb'))
@@ -65,6 +66,10 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 	my_unit = c.get('pagerprinter', 'unit').lower().strip()
 
 	printer = c.get('pagerprinter', 'printer')
+	print_copies = c.getint('pagerprinter', 'print-copies')
+	if print_copies < 1:
+		print "ERROR: print-copies is set to less than one.  You probably don't want this."
+		return
 	mapper = c.get('pagerprinter', 'mapper')
 
 	plugins = []
@@ -117,12 +122,12 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 						print "- URL for directions: %s" % url
 
 						# sending to browser
-						browser.print_url(url, printer)
+						browser.print_url(url, printer, print_copies)
 
 						# now, send to plugins
 						for plugin in plugins:
 							try:
-								plugin.execute(msg, unit, addr, date, printer)
+								plugin.execute(msg, unit, addr, date, printer, print_copies)
 							except Exception, e:
 								print "Exception caught in plugin %s" % type(plugin)
 								print e
