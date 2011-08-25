@@ -25,5 +25,7 @@ setup(
 	],
 	requires=requires,
 	license='GPL3',
-	console=['pagerprinter.py']
+	console=[
+		dict(script='pagerprinter.py', icon_resources=[(0, "pager.ico")]),
+	]
 )
