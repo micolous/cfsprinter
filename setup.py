@@ -12,10 +12,10 @@ if version < '2.6.0':
 
 setup(
 	name='cfsprinter',
-	version='0.1.2',
+	version='0.1.3',
 	author='Michael Farrell',
 	url='http://github.com/micolous/cfsprinter',
-	options=dict(py2exe=dict(includes=['plugins.winprint', 'plugins.lpdprint', 'plugins.skypesms'])),
+	options=dict(py2exe=dict(includes=['plugins.winprint', 'plugins.lpdprint', 'plugins.skypesms', 'plugins.logfile'])),
 	data_files=[
 		('doc', [
 			'pagerprinter.example.ini',
