@@ -38,7 +38,7 @@ def strip_tags(value):
 
 
 class CFSPagerScraper(object):
-	feed = 'http://paging.sacfs.org/feed1/live/ajax/update.php?f='
+	feed = 'http://paging1.sacfs.org/live/ajax/update.php?f='
 	last_update = int(time()) - 3600
 	message_parser = re.compile(
 		r'<td class="date">(?P<date>.+)</td>' +
