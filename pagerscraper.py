@@ -73,6 +73,7 @@ msg: The full message from the server, minus HTML tags.
 		# download the new feed
 		fp = urlopen(self.feed + str(self.last_update))
 		data = json.load(fp)
+
 		self.last_update = data['timestamp']
 
 		messages_sent = 0
@@ -101,11 +102,14 @@ msg: The full message from the server, minus HTML tags.
 
 	def update_forever(self, feed_handler):
 		"""\
-Like update, except the feed is updated continuously forever.  Error handling
-is your job.
+Like update, except the feed is updated continuously forever.  Errors are handled internally, but continually tries...
 """
 		while True:
-			self.update(feed_handler)
+			try:
+				self.update(feed_handler)
+			except Exception as ex:
+				print "Failure updating feed.  Error was:"
+				print ex
 			print "napping..."
 			sleep(self.update_frequency)
 
