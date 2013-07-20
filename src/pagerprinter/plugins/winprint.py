@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Windows text printing plugin for pagerprinter.
-Copyright 2011 Michael Farrell <http://micolous.id.au/>
+Copyright 2011-2013 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,7 +16,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from plugins import BasePlugin
+from __future__ import absolute_import
+from . import BasePlugin
 from traceback import print_exc
 try:
 	from win32api import ShellExecute

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Log file plugin for pagerprinter.
+Plugin support code for pagerprinter.
 Copyright 2011 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
@@ -16,20 +16,28 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from plugins import BasePlugin
+from sys import modules
 
-class LogFilePlugin(BasePlugin):
-	"""This plugin prints out a text document on Windows of the details."""
-	
-	def configure(self, c):
-		# open the log file.		
-		self.logfile = c.get('logfile', 'filename')
-		
-		self.linefeed = (c.getboolean('logfile', 'crlf') and '\r\n') or '\n'
-		
-	
+class BasePlugin(object):
+	def configure(self, config):
+		"""\
+Passes ConfigParserPlus instance to plugins so that they can be configured.  By
+default this does nothing.
+"""
+		pass
+
 	def execute(self, msg, unit, address, when, printer, print_copies):
-		open(self.logfile, 'ab').write(("%(when)s - %(unit)s - %(msg)s" % dict(when=when.ctime(), unit=unit, msg=msg)) + self.linefeed)
+		"""Executed when there is a new message matching filters"""
+		print "WARNING: BasePlugin default execute called!"
+		print "- Message: %s" % msg
+		print "- Unit: %s" % unit
+		print "- Address: %s" % address
+		print "- When: %s" % when
+		print "- Printer: %s" % printer
+		print "- Copies: %s" % print_copies
 
-PLUGIN = LogFilePlugin
 
+def get_plugin(name):
+	name = 'pagerprinter.plugins.' + name.lower().strip()
+	__import__(name)
+	return modules[name].PLUGIN()

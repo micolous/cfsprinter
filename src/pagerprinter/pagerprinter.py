@@ -16,35 +16,38 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from pagerscraper import get_scraper
-from browsersupport import get_browser
-from mappingsupport import get_map
-from plugins import get_plugin
-from configparser_plus import ConfigParserPlus
-from sys import argv
+from __future__ import absolute_import
+
+from .scrapers import get_scraper
+from .browsersupport import get_browser
+from .mappingsupport import get_map
+from .plugins import get_plugin
+# configparser3
+from configparser import SafeConfigParser, NoOptionError
+from argparse import ArgumentParser, FileType
 
 
-def main(fn):
+def main(fh):
 	print """\
-pagerprinter v0.1.3
-Copyright 2011 Michael Farrell <http://micolous.id.au/>
+pagerprinter v0.1.3+
+Copyright 2010-2013 Michael Farrell <http://micolous.id.au/>
 """
 	# parse config
-	c = ConfigParserPlus({'pagerprinter':
+	c = SafeConfigParser()
+	c.read_dict({'pagerprinter':
 		{
-			'update-freq': 30,
+			'update-freq': '30',
 			'backend': 'sacfs',
 			'browser': 'firefox',
 			'browser-exec': 'firefox',
-			'browser-wait': 20,
+			'browser-wait': '20',
 			'trigger': 'RESPOND',
 			'trigger-end': 'MAP',
 			'mapper': 'google',
-			'printer': None,
-			'print-copies': 1,
+			'print-copies': '1',
 		}
 	})
-	c.readfp(open(fn, 'rb'))
+	c.readfp(fh)
 
 	# get a scraper instance
 	scraper = get_scraper(
@@ -65,7 +68,10 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 	trigger_end = c.get('pagerprinter', 'trigger-end').lower().strip()
 	my_unit = c.get('pagerprinter', 'unit').lower().strip()
 
-	printer = c.get('pagerprinter', 'printer')
+	try:
+		printer = c.get('pagerprinter', 'printer')
+	except NoOptionError:
+		printer = None
 	print_copies = c.getint('pagerprinter', 'print-copies')
 	if print_copies < 1:
 		print "ERROR: print-copies is set to less than one.  You probably don't want this."
@@ -147,7 +153,13 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 
 
 if __name__ == '__main__':
-	configfile = 'pagerprinter.ini'
-	if len(argv) >= 2:
-		configfile = argv[1]
-	main(configfile)
+
+	parser = ArgumentParser()
+	
+	parser.add_argument(
+		'--config', '-c', type=FileType('rb'),
+		help='Configuration file to use'
+	)
+	
+	options = parser.parse_args()
+	main(options.config)

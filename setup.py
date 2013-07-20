@@ -6,7 +6,7 @@ except ImportError:
 	print "Warning: py2exe is not installed."
 	print "(Though it may not be available on your platform.)"
 
-requires = ['win32api']
+requires = ['win32api', 'configparser']
 if version < '2.6.0':
 	requires.append("simplejson")
 

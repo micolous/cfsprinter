@@ -6,6 +6,8 @@ Copyright 2011 Michael Farrell <http://micolous.id.au/>
 
 Version 0.1 (the prototype!).  This is incomplete, and contains bugs.
 
+This package is not written or endorsed by the South Australian Country Fire Service.
+
 ## Licensing ##
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

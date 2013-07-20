@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
-LPD/CUPS text printing plugin for pagerprinter.
-Copyright 2011 Michael Farrell <http://micolous.id.au/>
+Log file plugin for pagerprinter.
+Copyright 2011-2013 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,33 +16,21 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+from __future__ import absolute_import
+from . import BasePlugin
 
-from plugins import BasePlugin
-from subprocess import Popen, PIPE
-
-
-class LPDPrintPlugin(BasePlugin):
-	"""\
-This plugin prints out a text document using LPD/CUPS of the details, using the
-lpr command.
-"""
+class LogFilePlugin(BasePlugin):
+	"""This plugin prints out a text document on Windows of the details."""
+	
+	def configure(self, c):
+		# open the log file.		
+		self.logfile = c.get('logfile', 'filename')
+		
+		self.linefeed = (c.getboolean('logfile', 'crlf') and '\r\n') or '\n'
+		
+	
 	def execute(self, msg, unit, address, when, printer, print_copies):
-		if printer != None:
-			lpr = Popen(('lpr', '-#', str(print_copies), '-P', printer), stdin=PIPE)
-		else:
-			lpr = Popen(('lpr', '-#', str(print_copies)), stdin=PIPE)
+		open(self.logfile, 'ab').write(("%(when)s - %(unit)s - %(msg)s" % dict(when=when.ctime(), unit=unit, msg=msg)) + self.linefeed)
 
-		lpr.stdin.write("""\
-Got a page!
+PLUGIN = LogFilePlugin
 
-Unit: %(unit)s
-Address: %(address)s
-When: %(when)s
-
-%(msg)s
-""" % dict(msg=msg, unit=unit, address=address, when=when.ctime()))
-
-		lpr.stdin.flush()
-		lpr.stdin.close()
-
-PLUGIN = LPDPrintPlugin

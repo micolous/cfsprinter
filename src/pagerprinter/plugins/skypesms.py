@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Skype SMS plugin for pagerprinter.
-Copyright 2011 Michael Farrell <http://micolous.id.au/>
+Copyright 2011-2013 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -34,8 +34,8 @@ proper SMS gateway.  It's cheaper and doesn't require Skype to be
 running.
 
 """
-
-from plugins import BasePlugin
+from __future__ import absolute_import
+from . import BasePlugin
 
 try:
 	from Skype4Py import Skype, smsMessageTypeOutgoing

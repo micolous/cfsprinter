@@ -2,7 +2,7 @@
 """
 Library to scrape events from the CFS pager feed (South Australian
 Country Fire Service).
-Copyright 2010 - 2012 Michael Farrell <http://micolous.id.au/>
+Copyright 2010 - 2013 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,10 +32,10 @@ except ImportError:
 	# python <=2.5
 	import simplejson as json
 
-
-def strip_tags(value):
-	"Return the given HTML with all tags stripped."
-	return re.sub(r'<[^>]*?>', '', value)
+__all__ = [
+	'CFSPagerScraper',
+	'CFSPagerUrgmsgScraper',
+]
 
 
 class CFSPagerScraper(object):
@@ -114,7 +114,7 @@ Like update, except the feed is updated continuously forever.  Errors are handle
 			print "napping..."
 			sleep(self.update_frequency)
 
-			
+
 class CFSPagerUrgmsgScraper(object):
 	"""
 	urgmsg has a different way to identify revisions: ID number of message.
@@ -205,21 +205,3 @@ Like update, except the feed is updated continuously forever.  Errors are handle
 			print "napping..."
 			sleep(self.update_frequency)
 
-			
-SCRAPER_MAP = {
-	'sacfs': CFSPagerScraper,
-	'sacfs-urgmsg': CFSPagerUrgmsgScraper
-}
-
-
-def get_scraper(name):
-	name = name.lower().strip()
-	return SCRAPER_MAP[name]
-
-if __name__ == '__main__':
-	def test_handler(good_parse, **message):
-		print "msg = %s" % message
-
-	print "Activating test program..."
-	scraper = CFSPagerScraper()
-	scraper.update_forever(test_handler)
