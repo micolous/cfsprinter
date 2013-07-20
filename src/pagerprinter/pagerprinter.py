@@ -119,8 +119,18 @@ Copyright 2010-2013 Michael Farrell <http://micolous.id.au/>
 
 						# now split that up into parts, discarding the first
 						# which is a description of the event
-						addr = ','.join(addr.split(',')[-2:])
-
+						addr_p = addr.split(',')[-2:]
+						
+						# clone the list for iteration as we well modify in this operation as well
+						for i, part in enumerate(list(addr_p)):
+							if 'alarm level' in part:
+								del addr_p[i]
+								break
+						
+						# reassemble the address
+						addr = ','.join(addr_p)
+						del addr_p
+						
 						# we have an address.  feed it to the mapping engine
 						url = mapper.get_url(home, addr)
 
