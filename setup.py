@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 from setuptools import setup
 from sys import version
 
@@ -23,7 +22,7 @@ setup(
 	requires=requires,
 	license='GPL3',
 	console=[
-		dict(script='pagerprinter.py', icon_resources=[(0, "pager.ico")]),
+		dict(script='py2exe_run.py', icon_resources=[(0, "pager.ico")]),
 	],
 	
 	data_files=[('doc/pagerprinter', [
