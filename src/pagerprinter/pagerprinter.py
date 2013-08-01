@@ -27,7 +27,7 @@ from configparser import SafeConfigParser, NoOptionError
 from argparse import ArgumentParser, FileType
 
 
-def main(fh):
+def run(fh=None):
 	print """\
 pagerprinter v0.1.3+
 Copyright 2010-2013 Michael Farrell <http://micolous.id.au/>
@@ -45,9 +45,13 @@ Copyright 2010-2013 Michael Farrell <http://micolous.id.au/>
 			'trigger-end': 'MAP',
 			'mapper': 'google',
 			'print-copies': '1',
+			'unit': 'all',
+			'home': '141 King William Street, Adelaide SA 5000',
 		}
 	})
-	c.readfp(fh)
+	
+	if fh != None:
+		c.readfp(fh)
 
 	# get a scraper instance
 	scraper = get_scraper(
@@ -162,8 +166,7 @@ Copyright 2010-2013 Michael Farrell <http://micolous.id.au/>
 	scraper.update_forever(page_handler)
 
 
-if __name__ == '__main__':
-
+def main():
 	parser = ArgumentParser()
 	
 	parser.add_argument(
@@ -172,4 +175,9 @@ if __name__ == '__main__':
 	)
 	
 	options = parser.parse_args()
-	main(options.config)
+	run(options.config)
+
+
+if __name__ == '__main__':
+	main()
+

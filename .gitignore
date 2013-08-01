@@ -10,3 +10,5 @@ desktop.ini
 build/
 dist/
 *.log
+pagerprinter.egg-info
+
