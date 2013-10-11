@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import absolute_import
 from . import BasePlugin
 from subprocess import Popen, PIPE
+from configparser import NoOptionError
 
 
 class LPDPrintPlugin(BasePlugin):
@@ -26,11 +27,30 @@ class LPDPrintPlugin(BasePlugin):
 This plugin prints out a text document using LPD/CUPS of the details, using the
 lpr command.
 """
+	def configure(self, c):
+		try:
+			self.cpi = c.getint('pagerprinter', 'print-cpi')
+		except NoOptionError:
+			self.cpi = None
+		
+		try:
+			self.lpi = c.getint('pagerprinter', 'print-lpi')
+		except NoOptionError:
+			self.lpi = None
+
 	def execute(self, msg, unit, address, when, printer, print_copies):
+		pargs = ['lpr', '-#', str(print_copies)]
+
 		if printer != None:
-			lpr = Popen(('lpr', '-#', str(print_copies), '-P', printer), stdin=PIPE)
-		else:
-			lpr = Popen(('lpr', '-#', str(print_copies)), stdin=PIPE)
+			pargs += ['-P', printer]
+
+		if self.cpi != None:
+			pargs += ['-o', 'cpi=%d' % self.cpi]
+		
+		if self.lpi != None:
+			pargs += ['-o', 'lpi=%d' % self.lpi]
+
+		lpr = Popen(pargs, stdin=PIPE)
 
 		lpr.stdin.write("""\
 Got a page!

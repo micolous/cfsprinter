@@ -62,7 +62,14 @@ Mapping sites that are impossible:
 There are two plugins included:
 
  * lpdprint: Prints the page as text on Linux and Mac OS X.  It uses the command-line lpr utility, and has been tested only using CUPS (not actual LPD).  This probably works on Windows too, if you're using Cygwin (or have lpr).
+ 
+   This also adds two more options in the configuration, `print-cpi` and `printer-lpi`, which specifies the number of characters and lines per inch respectively (ie: the size of the text printed on the page).
+   
+   The default number of characters per inch is 10, and the default number of lines per inch is 6.  This can make the text quite small.
+ 
  * winprint: Prints the page as text on Windows.  This requires the win32all package.
+ 
+   Font size and family are typically controlled by the settings in Notepad.
 
 
 ## TODO ##
