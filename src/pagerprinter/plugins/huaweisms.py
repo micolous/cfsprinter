@@ -22,7 +22,7 @@ import serial, time
 
 
 # make our plugin!
-class HuaweiSms(BasePlugin):
+class HuaweiSmsPlugin(BasePlugin):
 	def configure(self, c):
 		# read in phone numbers we need
 		self.numbers = [
