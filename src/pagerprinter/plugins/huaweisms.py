@@ -35,13 +35,19 @@ class HuaweiSmsPlugin(BasePlugin):
 
 
 	def execute(self, msg, unit, address, when, printer, print_copies):
-		for phone_number in self.numbers:
-			self.ser.write('ATZ\r')
-			self.ser.write('AT+CMGF=1\r')
-			self.ser.write('AT+CMGS="%s"\r' % phone_number)
-			self.ser.write(msg + '\r' + chr(26))
-			self.ser.flush()
-			time.sleep(1)
+		sms = str('%s - %s' % (msg, unit))
+		
+		for x in range(0, len(sms), 150):
+			for phone_number in self.numbers:
+				self.ser.write('ATZ\r')
+				time.sleep(1)
+				self.ser.write('AT+CMGF=1\r')
+				time.sleep(1)
+				self.ser.write('AT+CMGS="%s"\r' % str(phone_number))
+				time.sleep(1)
+				self.ser.write(sms[x:x+150] + '\r' + chr(26))
+				time.sleep(1)
+				print "Sent mesage to %r: %r" % (phone_number, sms)
 
 
 PLUGIN = HuaweiSmsPlugin
