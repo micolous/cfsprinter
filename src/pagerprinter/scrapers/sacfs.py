@@ -120,7 +120,7 @@ class CFSPagerUrgmsgScraper(object):
 	urgmsg has a different way to identify revisions: ID number of message.
 	
 	"""
-	feed = 'http://urgmsg.net/live/ajax/update.php?'
+	feed = 'http://urgmsg.net/livenosaas/ajax/update.php?'
 	last_update = long(time() * 1000) - 3600
 	
 	# if f=0 is passed to the service, it returns the 25? most recent messages.
