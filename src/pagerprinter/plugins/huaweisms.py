@@ -38,7 +38,7 @@ class HuaweiSmsPlugin(BasePlugin):
 		for phone_number in self.numbers:
 			self.ser.write('ATZ\r')
 			self.ser.write('AT+CMGF=1\r')
-			self.ser.write('AT+CMGS="%s"\r' % self.phone_number)
+			self.ser.write('AT+CMGS="%s"\r' % phone_number)
 			self.ser.write(msg + '\r' + chr(26))
 			self.ser.flush()
 			time.sleep(1)
