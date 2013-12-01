@@ -24,10 +24,12 @@ __all__ = ['get_scraper']
 
 # TODO: make this dynamic.
 from .sacfs import *
+from .sacfs_pdw import *
 
 SCRAPER_MAP = {
 	'sacfs': CFSPagerScraper,
-	'sacfs-urgmsg': CFSPagerUrgmsgScraper
+	'sacfs-urgmsg': CFSPagerUrgmsgScraper,
+	'sacfs-pdw': CFSPDWScraper
 }
 
 
