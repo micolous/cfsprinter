@@ -2,11 +2,11 @@
 
 A program to print out the South Australian Country Fire Service pager feeds.  It is written in an extensible way, so other backends can be plugged in to it.
 
-Copyright 2011 Michael Farrell <http://micolous.id.au/>
+Copyright 2011-2013 Michael Farrell <http://micolous.id.au/>
 
 Version 0.1 (the prototype!).  This is incomplete, and contains bugs.
 
-This package is not written or endorsed by the South Australian Country Fire Service.
+This package is not written or endorsed by the South Australian Country Fire Service.  While care has been taken while writing this application, it is created for informational purposes only and should not be relied upon in the event of an emergency.
 
 ## Licensing ##
 
