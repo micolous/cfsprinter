@@ -11,6 +11,5 @@ build/
 dist/
 *.log
 pagerprinter.egg-info
-
-
 /doc/_build
+*.db3
