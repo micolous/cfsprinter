@@ -67,7 +67,7 @@ def main(database, outfile):
 			lastorg = org
 			outfile.write("\n## %s\n" % org)
 		
-		outfile.write("\t%d: %r,\n" % (address, str(name)))
+		outfile.write("\t%d: %r,\n" % (address, str(name).strip()))
 	
 	outfile.write('}\n\n')
 	

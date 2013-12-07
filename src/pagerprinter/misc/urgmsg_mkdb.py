@@ -37,7 +37,7 @@ def main(database):
 	
 	for address, name in CODES.items():
 		cur.execute('DELETE FROM flexcodes WHERE address = ?', (address,))
-		cur.execute('INSERT INTO flexcodes VALUES (?, ?)', (address, name))
+		cur.execute('INSERT INTO flexcodes VALUES (?, ?)', (address, name.strip()))
 
 	dbo.commit()
 	dbo.close()

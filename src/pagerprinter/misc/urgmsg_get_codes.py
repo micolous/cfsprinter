@@ -37,7 +37,7 @@ def main(database):
 			address = int(row.select('td.COL1')[0].string)
 			name = row.select('span.F')[0].string
 			
-			groups[address] = name
+			groups[address] = name.strip()
 	
 	# now dump these to the database
 	print 'Got %d groups to dump...' % len(groups.items())
