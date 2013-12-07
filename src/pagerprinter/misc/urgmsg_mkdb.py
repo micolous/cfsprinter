@@ -36,12 +36,9 @@ def main(database):
 	""")
 	
 	for address, name in CODES.items():
-		try:
-			cur.execute('INSERT INTO flexcodes VALUES (?, ?)', (address, name))
-		except sqlite3.IntegrityError:
-			# record already exists, skip
-			pass
-	
+		cur.execute('DELETE FROM flexcodes WHERE address = ?', (address,))
+		cur.execute('INSERT INTO flexcodes VALUES (?, ?)', (address, name))
+
 	dbo.commit()
 	dbo.close()
 	
