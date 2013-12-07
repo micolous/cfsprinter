@@ -18,6 +18,9 @@ Contents:
 	:maxdepth: 2
 	
 	pdw
+	browser
+	mapper
+	plugins
 
 Indices and tables
 ==================

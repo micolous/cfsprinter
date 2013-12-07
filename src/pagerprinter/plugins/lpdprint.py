@@ -50,9 +50,10 @@ lpr command.
 		if self.lpi != None:
 			pargs += ['-o', 'lpi=%d' % self.lpi]
 
-		lpr = Popen(pargs, stdin=PIPE)
+		for x in range(print_copies):
+			lpr = Popen(pargs, stdin=PIPE)
 
-		lpr.stdin.write("""\
+			lpr.stdin.write("""\
 Got a page!
 
 Unit: %(unit)s
@@ -62,7 +63,7 @@ When: %(when)s
 %(msg)s
 """ % dict(msg=msg, unit=unit, address=address, when=when.ctime()))
 
-		lpr.stdin.flush()
-		lpr.stdin.close()
+			lpr.stdin.flush()
+			lpr.stdin.close()
 
 PLUGIN = LPDPrintPlugin
