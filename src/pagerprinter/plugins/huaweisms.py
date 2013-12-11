@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Huawei SMS plugin
-Copyright 2013 Shane Rees
+Copyright 2013 Shane Rees <https://github.com/Shaggs/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -17,10 +17,12 @@ Contents:
 .. toctree::
 	:maxdepth: 2
 	
+	webscrape
 	pdw
 	browser
 	mapper
 	plugins
+	thanks
 
 Indices and tables
 ==================

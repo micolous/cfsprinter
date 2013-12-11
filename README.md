@@ -2,7 +2,7 @@
 
 A program to print out the South Australian Country Fire Service pager feeds.  It is written in an extensible way, so other backends can be plugged in to it.
 
-Copyright 2011-2013 Michael Farrell <http://micolous.id.au/>
+Copyright 2011-2013 [Michael Farrell](http://micolous.id.au/) and [contributors](AUTHORS.md).
 
 Version 0.1 (the prototype!).  This is incomplete, and contains bugs.
 

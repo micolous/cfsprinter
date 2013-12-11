@@ -28,6 +28,8 @@ from .sacfs_pdw import *
 
 SCRAPER_MAP = {
 	'sacfs': CFSPagerScraper,
+	'sacfs2': CFSPagerScraper2,
+	'sacfs3': CFSPagerScraper3,
 	'sacfs-urgmsg': CFSPagerUrgmsgScraper,
 	'sacfs-pdw': CFSPDWScraper
 }

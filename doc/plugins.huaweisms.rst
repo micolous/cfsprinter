@@ -2,15 +2,20 @@
 Huawei SMS Plugin
 *****************
 
+.. codeauthor:: Shane Rees
+
 This plugin sends pages recieved as a text message via a Huawei USB 3G modem.
 
-It has only been tested properly on Linux, and requires that the dongle be in "serial" mode.  This may require that you use ``usbmodeswitch`` to adjust the device.  Most Linux distributions do this automatically through ``udev``.
+This module will only work on Linux, and requires that the dongle be in "serial" mode.  This may require that you use ``usbmodeswitch`` to adjust the device.  Most Linux distributions do this automatically through ``udev``.
 
-This plugin has a number of limitations:
+This module requires that you have installed `pyserial`__.
 
-* It will not create "concatenated" SMS for long messages -- instead it will send as many messages as needed to display the entire message
+__ https://pypi.python.org/pypi/pyserial
+
+This plugin has some limitations:
+
+* It will not create "concatenated" SMS for long messages -- instead it will send as many messages as needed to display the entire message.
 * It will not work with dongles that have their SIM card protected with a PIN without it being unlocked first (by another program).
-* It will probably only work on Linux.
 
 Configuring the plugin
 ======================

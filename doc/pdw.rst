@@ -15,7 +15,7 @@ __ http://www.discriminator.nl/pdw/index-en.html
 Configuring pagerprinter
 ========================
 
-In order to use PDW, the ``[pagerprinter]``.``backend`` setting must be set to ``sacfs-pdw``:
+In order to use PDW, the ``[pagerprinter]`` ``backend`` setting must be set to ``sacfs-pdw``:
 
 .. code-block:: ini
 
@@ -56,9 +56,9 @@ Adding more pager group addresses
 
 	The versions of ``libsqlite3`` included with Python 2.7 on Windows platforms are old and require manual replacement:
 	
-	On ``win32`` (and x86_32 versions of Python running on ``x86_64`` versions of Windows), you can `download the precompiled version of sqlite3.dll from the SQLite website`__, overwriting :file:`C:\\Python27\\DLLs\\sqlite3.dll`.
+	* On ``win32`` (and x86_32 versions of Python running on ``x86_64`` versions of Windows), you can `download the precompiled version of sqlite3.dll from the SQLite website`__, overwriting :file:`C:\\Python27\\DLLs\\sqlite3.dll`.
 
-	On ``x86_64`` (using an ``x86_64`` version of Python), download :file:`sqlite-netfx40-static-binary-x64-2010-{*}.zip` `from the System.Data.Sqlite website`__, and overwrite :file:`C:\\Python27\\DLLs\\sqlite3.dll` with :file:`SQLite.Interop.dll` from that archive.
+	* On ``x86_64`` (using an ``x86_64`` version of Python), download :file:`sqlite-netfx40-static-binary-x64-2010-{*}.zip` `from the System.Data.Sqlite website`__, and overwrite :file:`C:\\Python27\\DLLs\\sqlite3.dll` with :file:`SQLite.Interop.dll` from that archive.
 
 __ https://www.sqlite.org/download.html
 __ http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki

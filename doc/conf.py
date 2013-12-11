@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'cfsprinter'
-copyright = u'2013, Michael Farrell'
+copyright = u'2013, Michael Farrell and contributors'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -78,7 +78,7 @@ exclude_patterns = ['_build']
 
 # If true, sectionauthor and moduleauthor directives will be shown in the
 # output. They are ignored by default.
-#show_authors = False
+show_authors = True
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'

@@ -34,12 +34,14 @@ except ImportError:
 
 __all__ = [
 	'CFSPagerScraper',
+	'CFSPagerScraper2',
+	'CFSPagerScraper3',
 	'CFSPagerUrgmsgScraper',
 ]
 
 
 class CFSPagerScraper(object):
-	feed = 'http://paging1.sacfs.org/live/ajax/update.php?f='
+	feed = 'http://paging1.sacfs.org/livenosaas/ajax/update.php?f='
 	last_update = int(time()) - 3600
 	message_parser = re.compile(
 		r'<td class="date">(?P<date>.+)</td>' +
@@ -72,9 +74,10 @@ If the good_parse is False, you'll get this instead:
 msg: The full message from the server, minus HTML tags.
 """
 		# download the new feed
+		print self.feed + str(self.last_update)
 		fp = urlopen(self.feed + str(self.last_update))
 		data = json.load(fp)
-
+		
 		self.last_update = data['timestamp']
 
 		messages_sent = 0
@@ -205,3 +208,13 @@ Like update, except the feed is updated continuously forever.  Errors are handle
 			print "napping..."
 			sleep(self.update_frequency)
 
+# alternate servers for above
+class CFSPagerScraper2(CFSPagerUrgmsgScraper):
+	# paging2.sacfs.org uses the urgmsg protocol
+	feed = 'http://paging2.sacfs.org/livenosaas/ajax/update.php?f='
+
+
+class CFSPagerScraper3(CFSPagerScraper):
+	# paging3.sacfs.org uses the same protocol as paging1.sacfs.org, but
+	# lacks a non-SAAS option
+	feed = 'http://paging3.sacfs.org/live/ajax/update.php?f='
