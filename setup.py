@@ -17,8 +17,15 @@ setup(
 	version='0.1.4',
 	author='Michael Farrell',
 	url='http://github.com/micolous/cfsprinter',
-	options=dict(py2exe=dict(includes=['plugins.winprint', 'plugins.lpdprint', 'plugins.skypesms', 'plugins.logfile'])),
-
+	options=dict(py2exe=dict(includes=[
+		'plugins.winprint',
+		'plugins.lpdprint',
+		'plugins.skypesms',
+		'plugins.logfile',
+		'plugins.huaweisms',
+		'plugins.email',
+	])),
+	
 	requires=requires,
 	license='GPL3',
 	console=[
