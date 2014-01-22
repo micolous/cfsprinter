@@ -2,13 +2,13 @@
 
 A program to print out the South Australian Country Fire Service pager feeds.  It is written in an extensible way, so other backends can be plugged in to it.
 
-Copyright 2011-2013 [Michael Farrell](http://micolous.id.au/) and [contributors](AUTHORS.md).
+Copyright 2011-2014 [Michael Farrell](http://micolous.id.au/) and [contributors](AUTHORS.md).
 
 Version 0.1 (the prototype!).  This is incomplete, and contains bugs.
 
 This package is not written or endorsed by the South Australian Country Fire Service.  While care has been taken while writing this application, it is created for informational purposes only and should not be relied upon in the event of an emergency.
 
-**Documentation**: http://cfsprinter.rftd.org/
+**Documentation**: http://cfsprinter.rtfd.org/
 
 ## Licensing ##
 
@@ -21,8 +21,8 @@ You should have received a copy of the GNU General Public License along with thi
 ## Requirements ##
 
  * Python 2.6 or later.  Python 2.5 may work with the simplejson package installed.
- * On Windows, the Python win32all package.  http://sourceforge.net/projects/pywin32/
- * On Firefox, the cmdlnprint extension.  http://sites.google.com/site/torisugari/commandlineprint2
+ * On Windows, the Python [win32all package](http://sourceforge.net/projects/pywin32/).
+ * On Firefox, the [cmdlnprint extension](http://sites.google.com/site/torisugari/commandlineprint2).  This only works with Firefox up to v3.6, you may wish to run the [old version from PortableApps](http://portableapps.com/apps/internet/firefox_portable/localization#legacy36) which should still work.
 
 ## Getting It ##
 
