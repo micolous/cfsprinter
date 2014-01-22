@@ -34,9 +34,10 @@ In order to use the Firefox plugin, you need to set ``[pagerprinter]``.``browser
 	; You can also print multiple copies.  By default only 1 is printed.
 	print-copies = 1
 
-You'll then need to `install the cmdlnprint extension`__ in Firefox.
+You'll then need to `install the cmdlnprint extension`__ in Firefox.  This only works on upto Firefox v3.6, so you may want to `download the old version of Firefox from PortableApps`__ and configure pagerprinter to use this, which should work.  You shouldn't use the old version of Firefox for anything else due to security issues.
 
 __ http://sites.google.com/site/torisugari/commandlineprint2
+__ http://portableapps.com/apps/internet/firefox_portable/localization#legacy36
 
 There one tweakable option, the ``browser-wait`` setting.  This controls how many seconds to wait for the map to load before printing it out.
 
