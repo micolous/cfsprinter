@@ -38,7 +38,7 @@ http://sites.google.com/site/torisugari/commandlineprint2
 
 
 class TestBrowser(BrowserBackend):
-	def print_url(self, url, printer=None):
+	def print_url(self, url, printer=None, print_copies=1):
 		if printer == None:
 			print "printing on default printer: %s" % url
 		else:

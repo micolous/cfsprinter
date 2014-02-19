@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Program to automatically print out CFS pager feeds.
-Copyright 2011 Michael Farrell <http://micolous.id.au/>
+Copyright 2010-2014 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,12 +25,13 @@ from .plugins import get_plugin
 # configparser3
 from configparser import SafeConfigParser, NoOptionError
 from argparse import ArgumentParser, FileType
+import re
 
 
 def run(fh=None):
 	print """\
 pagerprinter v0.1.3+
-Copyright 2010-2013 Michael Farrell <http://micolous.id.au/>
+Copyright 2010-2014 Michael Farrell <http://micolous.id.au/>
 """
 	# parse config
 	c = SafeConfigParser()
@@ -120,6 +121,9 @@ Copyright 2010-2013 Michael Farrell <http://micolous.id.au/>
 
 					if trigger_end in lmsg:
 						addr = addr.split(trigger_end)[0]
+						
+						# Remove the @ symbols in the message, and the ASE device number (#nnn/nnn)
+						addr = re.sub(r'#\d{3}/\d{3}|@|\s:\s', '', addr)
 
 						# now split that up into parts, discarding the first
 						# which is a description of the event
