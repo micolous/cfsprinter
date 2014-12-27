@@ -451,6 +451,7 @@ CODES = {
 	1916031: 'SAAS Unit Clare',
 	1916032: 'SAAS Unit Cleve',
 	1916034: 'SAAS Unit Coober Pedy',
+	1916036: 'SAAS Unit Crystal Brook',
 	1916039: 'SAAS Unit Gladstone',
 	1916041: 'SAAS Unit Jamestown',
 	1916046: 'SAAS Unit Maitland',
