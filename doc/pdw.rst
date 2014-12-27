@@ -2,9 +2,9 @@
 Using with PDW
 **************
 
-`PDW is a pager decoder software`__.  It can be used in conjunction with ``pagerprinter`` to recieve pages "over the air" (ie: without an internet connection).
+`PDW is a pager decoder software`__.  It can be used in conjunction with ``pagerprinter`` to recieve pages "over the air" (ie: without an internet connection) from the SAGRN service.
 
-It will require connecting an appropriate radio tuned to ``148.8125 MHz`` to a sound card attached to your computer.
+It will require connecting an appropriate radio's discriminator output, tuned to ``148.8125 MHz``, to the input of a sound card attached to your computer.
 
 The module makes no allowances for errors in the pages received, so you will need to ensure that you have a good signal.  Corrupted pages will not be parsed correctly.
 
@@ -26,10 +26,27 @@ There are no other configuration options currently available for this scraper.
 
 The ``update-frequency`` setting has no effect -- all pages will be passed asynchronously as soon as they are received.
 
+Configuring the radio
+=====================
+
+The radio will need to be tuned to the SAGRN pager frequency, ``148.8125 MHz`` FM.
+
+The discriminator output of the radio will need to be attached to your computer's line-in jack.  Most radios do not provide a direct discriminator output, and `will require some soldering and circuitry in order to access it`__.  This is outside of the scope of this document.
+
+__ http://wiki.radioreference.com/index.php/Discriminator_output
+
+Once this is complete, you should be able to hear through the line-in jack, pager data at least once every minute, and static between pages (when there is no carrier).
+
 Configuring PDW
 ===============
 
-Configuring PDW to receive pages successfully is outside of the scope of this document.  At this point is is assumed that you are already able to receive pages reliably and pages are showing inside of PDW.
+In PDW, it will need to be configured to decode FLEX 1600 pages.  You will also need to configure PDW to receive pages from a sound card (it defaults to a serial device).
+
+You should be able to see the pages as they come in on the main screen of PDW, with minimal data errors (these are shown in light red -- correct data is shown in cyan).  If you don't, there may be issues with your audio levels or insufficient signal strength in your location.
+
+About once every minute there should be a page on your screen for FLEX address ``1900253``, which are test pages.  They should give you an easy way to test various settings and antenna configurations.
+
+Once the configuration is verified as working, you can then setup the link between pagerprinter and PDW.
 
 When using the ``sacfs-pdw`` scraper in ``pagerprinter``, it will run an SMTP server bound to ``localhost:8825``.  PDW can then send emails to this server and this will generate events inside of ``pagerprinter``.
 
@@ -49,19 +66,6 @@ In order to configure PDW to propegate pages to pagerprinter:
 
 Adding more pager group addresses
 =================================
-
-.. note:: In order to use these scripts, you will require ``libsqlite3 >= 3.7.15``.  ``libsqlite3`` is not required for any other functionality in ``pagerprinter``, even when using PDW.
-
-	On Debian systems this is in the ``libsqlite3-0`` package, and ``wheezy`` has an old version (you will need at least ``jessie``)
-
-	The versions of ``libsqlite3`` included with Python 2.7 on Windows platforms are old and require manual replacement:
-	
-	* On ``win32`` (and x86_32 versions of Python running on ``x86_64`` versions of Windows), you can `download the precompiled version of sqlite3.dll from the SQLite website`__, overwriting :file:`C:\\Python27\\DLLs\\sqlite3.dll`.
-
-	* On ``x86_64`` (using an ``x86_64`` version of Python), download :file:`sqlite-netfx40-static-binary-x64-2010-{*}.zip` `from the System.Data.Sqlite website`__, and overwrite :file:`C:\\Python27\\DLLs\\sqlite3.dll` with :file:`SQLite.Interop.dll` from that archive.
-
-__ https://www.sqlite.org/download.html
-__ http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki
 
 Pager group addresses (flex codes / cap codes) are stored in :file:`src/pagerprinter/scrapers/sacfs_flexcode.py`, in the :py:const:`pagerprinter.scrapers.sacfs_flexcode.CODES` dict.
 
