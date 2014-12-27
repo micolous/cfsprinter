@@ -33,7 +33,7 @@ The radio will need to be tuned to the SAGRN pager frequency, ``148.8125 MHz`` F
 
 The discriminator output of the radio will need to be attached to your computer's line-in jack.  Most radios do not provide a direct discriminator output, and `will require some soldering and circuitry in order to access it`__.  This is outside of the scope of this document.
 
-__ http://wiki.radioreference.com/index.php/Discriminator_output
+__ http://www.discriminator.nl/index-en.html
 
 Once this is complete, you should be able to hear through the line-in jack, pager data at least once every minute, and static between pages (when there is no carrier).
 
