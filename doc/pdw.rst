@@ -37,6 +37,8 @@ __ http://www.discriminator.nl/index-en.html
 
 Once this is complete, you should be able to hear through the line-in jack, pager data at least once every minute, and static between pages (when there is no carrier).
 
+The audio must through the left audio channel, as this is the channel used by PDW.  It does not matter if it also comes through the right audio channel, as long as it is also coming through the left.
+
 Configuring PDW
 ===============
 
