@@ -2,7 +2,7 @@
 from setuptools import setup
 from sys import version, platform
 
-requires = ['configparser']
+requires = ['beautifulsoup4', 'configparser']
 
 if platform == 'win32':
 	try:

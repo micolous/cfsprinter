@@ -45,24 +45,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 '''
 
-# do a check on sqlite version, because we need INSTR()
-if StrictVersion(sqlite3.sqlite_version) < StrictVersion('3.7.15'):
-	raise ImportError('libsqlite3 >= 3.7.15 is required, you have version %s' % sqlite3.sqlite_version)
+def _result_cmp(row1, row2):
+	# Sort by org, then by address for results.
+	address1, name1, org1 = row1
+	address2, name2, org2 = row2
+	o = cmp(org1, org2)
+	if o == 0:
+		o = cmp(address1, address2)
+
+	return o
 
 def main(database, outfile):
 	dbo = sqlite3.connect(database)
 	cur = dbo.cursor()
 	
 	cur.execute("""
-		SELECT address, name, substr(name, 0, instr(name, ' ')) org
+		SELECT address, name
 		FROM flexcodes
-		ORDER BY org, address
 	""")
 	
 	outfile.write(PREAMBLE)
 	outfile.write('CODES = {')
 	lastorg = None
-	for address, name, org in cur:
+
+	results = []
+	for result in cur:
+		results.append([
+			result[0],
+			result[1],
+			result[1].split(' ')[0]
+		])
+
+	results.sort(cmp=_result_cmp)
+
+	for address, name, org in results:
 		if org != lastorg:
 			lastorg = org
 			outfile.write("\n## %s\n" % org)
