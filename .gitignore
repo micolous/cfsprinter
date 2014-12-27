@@ -13,3 +13,4 @@ dist/
 pagerprinter.egg-info
 /doc/_build
 *.db3
+env
