@@ -3,7 +3,9 @@
 Display Plugin
 Copyright 2015 Shane Rees <https://github.com/Shaggs/>
 
-A Small GUI to display pager message on a screen 
+A Small GUI to display pager message on a screen. Will change from
+Green > orange > Red at a 3 minute interval this way upon entering the
+station you can have a ruff indication of response time.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,17 +28,21 @@ from Tkinter import *
 
 
 class display(BasePlugin):
-	def _close():
-		root.destroy()
-		
-	def execute(self, msg, unit, address, when, printer, print_copies):
-		mseg = str('%s - %s' % (msg, unit))
-		root = Tk()
-		text = Text(root, wrap = 'word', bg= 'red', font= 'times 30 bold')
-		text.insert(INSERT, msg)
-		text.pack(anchor= 'sw', fill = 'both', expand = 'yes')
-		root.title('Pager Printer Display')
-		root.after(6000, root.destroy)
-		root.mainloop(0)
-		
+    def execute(self, msg, unit, address, when, printer, print_copies):
+        def orange():
+            text_widget.config(bg="Orange")
+            root.after(180000, red)
+        def red():
+            text_widget.config(bg="Red")
+            root.after(180000, kill)
+        def kill():
+            root.destroy()
+	mseg = str('%s - %s' % (msg, unit))
+	root = Tk()
+	text_widget = Text(root, font='times 40 bold', bg='Green')
+	text_widget.pack(fill=BOTH, expand=0)
+	text_widget.tag_configure('tag-center', wrap='word', justify='center')
+	text_widget.insert(INSERT, "\n" + "\n"  +"\n" + mseg, 'tag-center')
+	root.after(180000, orange)
+	root.mainloop()		
 PLUGIN = display
