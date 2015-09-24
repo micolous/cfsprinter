@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 urgmsg_get_codes.py - script to grab currently used codes from urgmsg.net
-Copyright 2010 - 2013 Michael Farrell <http://micolous.id.au/>
+Copyright 2010 - 2015 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ import sqlite3
 
 def main(database):
 	dbo = sqlite3.connect(database)
-	
+
 	# create our table
 	cur = dbo.cursor()
 	cur.execute("""
@@ -34,22 +34,19 @@ def main(database):
 			name TEXT
 		)
 	""")
-	
+
 	for address, name in CODES.items():
 		cur.execute('DELETE FROM flexcodes WHERE address = ?', (address,))
 		cur.execute('INSERT INTO flexcodes VALUES (?, ?)', (address, name.strip()))
 
 	dbo.commit()
 	dbo.close()
-	
+
 	print 'Done!'
-	
-		
-	
-	
+
 if __name__ == '__main__':
 	parser = ArgumentParser()
 	parser.add_argument('-d', '--database', required=True, help='Database file to use')
-	
+
 	options = parser.parse_args()
 	main(options.database)

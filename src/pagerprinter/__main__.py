@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Program to automatically print out CFS pager feeds.
-Copyright 2010-2014 Michael Farrell <http://micolous.id.au/>
+Copyright 2010 - 2015 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,3 +22,4 @@ from .pagerprinter import main
 
 if __name__ == '__main__':
 	main()
+

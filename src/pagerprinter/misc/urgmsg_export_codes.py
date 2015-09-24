@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 urgmsg_export_codes.py - script to generate sacfs_flexcode.py
-Copyright 2010 - 2014 Michael Farrell <http://micolous.id.au/>
+Copyright 2010 - 2015 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from argparse import ArgumentParser, FileType
-from distutils.version import StrictVersion
 from datetime import date
 import sqlite3
 
@@ -46,6 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ''' % (date.today().year)
 
+
 def _result_cmp(row1, row2):
 	# Sort by org, then by address for results.
 	address1, name1, org1 = row1
@@ -56,15 +56,16 @@ def _result_cmp(row1, row2):
 
 	return o
 
+
 def main(database, outfile):
 	dbo = sqlite3.connect(database)
 	cur = dbo.cursor()
-	
+
 	cur.execute("""
 		SELECT address, name
 		FROM flexcodes
 	""")
-	
+
 	outfile.write(PREAMBLE)
 	outfile.write('CODES = {')
 	lastorg = None
@@ -82,26 +83,27 @@ def main(database, outfile):
 	for address, name, org in results:
 		if org != lastorg:
 			lastorg = org
-			outfile.write("\n## %s\n" % org)
-		
+			outfile.write("\n\t# %s\n" % org)
+
 		outfile.write("\t%d: %r,\n" % (address, str(name).strip()))
-	
+
 	outfile.write('}\n\n')
-	
-	
-if __name__ == '__main__': 
+
+
+if __name__ == '__main__':
 	parser = ArgumentParser()
-	
+
 	parser.add_argument(
 		'-d', '--database', required=True,
 		help='Database file to read'
 	)
-	
+
 	parser.add_argument(
 		'-o', '--output', required=True, type=FileType('wb'),
 		help='Output filename for sacfs_flexcode.py'
 	)
-	
+
 	options = parser.parse_args()
-	
+
 	main(options.database, options.output)
+

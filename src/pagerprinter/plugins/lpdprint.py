@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 LPD/CUPS text printing plugin for pagerprinter.
-Copyright 2011 Michael Farrell <http://micolous.id.au/>
+Copyright 2011 - 2015 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ lpr command.
 			self.cpi = c.getint('pagerprinter', 'print-cpi')
 		except NoOptionError:
 			self.cpi = None
-		
+
 		try:
 			self.lpi = c.getint('pagerprinter', 'print-lpi')
 		except NoOptionError:
@@ -41,13 +41,13 @@ lpr command.
 	def execute(self, msg, unit, address, when, printer, print_copies):
 		pargs = ['lpr', '-#', str(print_copies)]
 
-		if printer != None:
+		if printer is not None:
 			pargs += ['-P', printer]
 
-		if self.cpi != None:
+		if self.cpi is not None:
 			pargs += ['-o', 'cpi=%d' % self.cpi]
-		
-		if self.lpi != None:
+
+		if self.lpi is not None:
 			pargs += ['-o', 'lpi=%d' % self.lpi]
 
 		for x in range(print_copies):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Library to scrape events from emergency services pager feeds.
-Copyright 2010 - 2013 Michael Farrell <http://micolous.id.au/>
+Copyright 2010 - 2015 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,8 +23,8 @@ __all__ = ['get_scraper']
 
 
 # TODO: make this dynamic.
-from .sacfs import *
-from .sacfs_pdw import *
+from .sacfs import CFSPagerScraper, CFSPagerScraper2, CFSPagerScraper3, CFSPagerUrgmsgScraper
+from .sacfs_pdw import CFSPDWScraper
 
 SCRAPER_MAP = {
 	'sacfs': CFSPagerScraper,

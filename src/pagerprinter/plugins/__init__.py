@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from sys import modules
 
+
 class BasePlugin(object):
 	def configure(self, config):
 		"""\

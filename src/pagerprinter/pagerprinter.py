@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Program to automatically print out CFS pager feeds.
-Copyright 2010-2014 Michael Farrell <http://micolous.id.au/>
+Copyright 2010 - 2015 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,12 +31,12 @@ import re
 def run(fh=None):
 	print """\
 pagerprinter v0.1.3+
-Copyright 2010-2014 Michael Farrell <http://micolous.id.au/>
+Copyright 2010 - 2015 Michael Farrell <http://micolous.id.au/>
 """
 	# parse config
 	c = SafeConfigParser()
-	c.read_dict({'pagerprinter':
-		{
+	c.read_dict({
+		'pagerprinter': {
 			'update-freq': '30',
 			'backend': 'sacfs',
 			'browser': 'firefox',
@@ -48,10 +48,10 @@ Copyright 2010-2014 Michael Farrell <http://micolous.id.au/>
 			'print-copies': '1',
 			'unit': 'all',
 			'home': '141 King William Street, Adelaide SA 5000',
-		}
+		},
 	})
-	
-	if fh != None:
+
+	if fh is not None:
 		c.readfp(fh)
 
 	# get a scraper instance
@@ -121,24 +121,24 @@ Copyright 2010-2014 Michael Farrell <http://micolous.id.au/>
 
 					if trigger_end in lmsg:
 						addr = addr.split(trigger_end)[0]
-						
+
 						# Remove the @ symbols in the message, and the ASE device number (#nnn/nnn)
 						addr = re.sub(r'#\d{3}/\d{3}|@|\s:\s', '', addr)
 
 						# now split that up into parts, discarding the first
 						# which is a description of the event
 						addr_p = addr.split(',')[-2:]
-						
+
 						# clone the list for iteration as we well modify in this operation as well
 						for i, part in enumerate(list(addr_p)):
 							if 'alarm level' in part:
 								del addr_p[i]
 								break
-						
+
 						# reassemble the address
 						addr = ','.join(addr_p)
 						del addr_p
-						
+
 						# we have an address.  feed it to the mapping engine
 						url = mapper.get_url(home, addr)
 
@@ -172,12 +172,12 @@ Copyright 2010-2014 Michael Farrell <http://micolous.id.au/>
 
 def main():
 	parser = ArgumentParser()
-	
+
 	parser.add_argument(
 		'--config', '-c', type=FileType('rb'),
 		help='Configuration file to use'
 	)
-	
+
 	options = parser.parse_args()
 	run(options.config)
 

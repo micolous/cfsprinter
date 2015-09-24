@@ -33,10 +33,9 @@ class HuaweiSmsPlugin(BasePlugin):
 
 		self.ser = serial.Serial(c.get('huaweisms', 'port'), 460800, timeout=5)
 
-
 	def execute(self, msg, unit, address, when, printer, print_copies):
 		sms = str('%s - %s' % (msg, unit))
-		
+
 		for x in range(0, len(sms), 150):
 			for phone_number in self.numbers:
 				self.ser.write('ATZ\r')
@@ -45,7 +44,7 @@ class HuaweiSmsPlugin(BasePlugin):
 				time.sleep(1)
 				self.ser.write('AT+CMGS="%s"\r' % str(phone_number))
 				time.sleep(1)
-				self.ser.write(sms[x:x+150] + '\r' + chr(26))
+				self.ser.write(sms[x:x + 150] + '\r' + chr(26))
 				time.sleep(1)
 				print "Sent mesage to %r: %r" % (phone_number, sms)
 

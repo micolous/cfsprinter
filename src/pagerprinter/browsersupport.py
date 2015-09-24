@@ -1,6 +1,20 @@
 #!/usr/bin/env python
 """
 Browser backend support code.
+Copyright 2010 - 2015 Michael Farrell <http://micolous.id.au/>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from subprocess import Popen
@@ -20,7 +34,7 @@ http://sites.google.com/site/torisugari/commandlineprint2
 """
 	def print_url(self, url, printer=None, print_copies=1):
 		for x in range(print_copies):
-			if printer == None:
+			if printer is None:
 				Popen((
 					self.browser_executable,
 					'-print', url,
@@ -39,7 +53,7 @@ http://sites.google.com/site/torisugari/commandlineprint2
 
 class TestBrowser(BrowserBackend):
 	def print_url(self, url, printer=None, print_copies=1):
-		if printer == None:
+		if printer is None:
 			print "printing on default printer: %s" % url
 		else:
 			print "printing on specific printer (%s): %s" % (printer, url)

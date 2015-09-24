@@ -22,27 +22,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from __future__ import absolute_import
 from . import BasePlugin
-import os, sys
-import time
-from Tkinter import *
+from Tkinter import Tk, BOTH, INSERT, Text
 
 
-class display(BasePlugin):
-    def execute(self, msg, unit, address, when, printer, print_copies):
-        def orange():
-            text_widget.config(bg="Orange")
-            root.after(180000, red)
-        def red():
-            text_widget.config(bg="Red")
-            root.after(180000, kill)
-        def kill():
-            root.destroy()
-	mseg = str('%s - %s' % (msg, unit))
-	root = Tk()
-	text_widget = Text(root, font='times 40 bold', bg='Green')
-	text_widget.pack(fill=BOTH, expand=0)
-	text_widget.tag_configure('tag-center', wrap='word', justify='center')
-	text_widget.insert(INSERT, "\n" + "\n"  +"\n" + mseg, 'tag-center')
-	root.after(180000, orange)
-	root.mainloop()		
-PLUGIN = display
+class Display(BasePlugin):
+	def execute(self, msg, unit, address, when, printer, print_copies):
+		def orange():
+			text_widget.config(bg="Orange")
+			root.after(180000, red)
+
+		def red():
+			text_widget.config(bg="Red")
+			root.after(180000, kill)
+
+		def kill():
+			root.destroy()
+
+		mseg = str('%s - %s' % (msg, unit))
+		root = Tk()
+		text_widget = Text(root, font='times 40 bold', bg='Green')
+		text_widget.pack(fill=BOTH, expand=0)
+		text_widget.tag_configure('tag-center', wrap='word', justify='center')
+		text_widget.insert(INSERT, "\n" + "\n" + "\n" + mseg, 'tag-center')
+		root.after(180000, orange)
+
+		# TODO: this needs to spawn a thread
+		root.mainloop()
+
+PLUGIN = Display

@@ -2,8 +2,8 @@
 pyttsx (text to speech)
 Copyright 2014 Shane Rees <https://github.com/Shaggs/>
 
-This plug-in is designed to read out a copy of the received turnout 
-Page for those that maybe in the station or form those coming in 
+This plug-in is designed to read out a copy of the received turnout
+Page for those that maybe in the station or form those coming in
 and need details.
 
 it reads only parts of the page. They are RESPOND (job type), Alarm Level,
@@ -33,18 +33,20 @@ import re
 import time
 engine = pyttsx.init()
 rate = engine.getProperty('rate')
-engine.setProperty('rate',100)
+engine.setProperty('rate', 100)
 volume = engine.getProperty('volume')
-engine.setProperty('volume',100)
+engine.setProperty('volume', 100)
+
+
 class TTS(BasePlugin):
-        def execute(self, msg, unit, address, when, printer, print_copies):
+	def execute(self, msg, unit, address, when, printer, print_copies):
 		res = str('%s - %s' % (msg, unit))
 		rem = re.compile('.*(RESPOND.*?ALARM\sLEVEL:\s\d)')
 		resp = rem.match(res)
 		more = str('%s - %s' % (msg, unit))
 		inf = re.compile('.*==(.*?\s:)')
 		info = inf.match(more)
-		
+
 		if resp:
 			for group in resp.groups():
 				if info:

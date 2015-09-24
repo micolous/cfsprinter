@@ -2,7 +2,7 @@
 """
 Library to scrape events from the CFS pager feed (South Australian
 Country Fire Service).
-Copyright 2010 - 2013 Michael Farrell <http://micolous.id.au/>
+Copyright 2010 - 2015 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,13 +18,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+from __future__ import absolute_import
 import re
-from time import sleep, time
 from datetime import datetime
+from time import sleep, time
 from urllib2 import urlopen
 from urllib import urlencode
-from datetime import datetime
 from xml.sax.saxutils import unescape
+from ..support import strip_tags
+
 try:
 	# python >=2.6
 	import json
@@ -77,16 +79,14 @@ msg: The full message from the server, minus HTML tags.
 		print self.feed + str(self.last_update)
 		fp = urlopen(self.feed + str(self.last_update))
 		data = json.load(fp)
-		
+
 		self.last_update = data['timestamp']
 
-		messages_sent = 0
 		if data['updated']:
 
 			# feed was updated, start posting.
 			messages = data['data'].split('<tr class="page">')
 			for message in messages[1:]:
-				#print message
 				result = self.message_parser.match(message)
 
 				# report back to the handler on what our status is.
@@ -94,7 +94,7 @@ msg: The full message from the server, minus HTML tags.
 					d = datetime.strptime(result.group('date'), '%d-%m-%y %H:%M:%S')
 				except:
 					d = result.group('date')
-				if result == None:
+				if result is None:
 					feed_handler(good_parse=False, msg=strip_tags(message))
 				else:
 					feed_handler(
@@ -121,11 +121,11 @@ Like update, except the feed is updated continuously forever.  Errors are handle
 class CFSPagerUrgmsgScraper(object):
 	"""
 	urgmsg has a different way to identify revisions: ID number of message.
-	
+
 	"""
 	feed = 'http://urgmsg.net/livenosaas/ajax/update.php?'
 	last_update = long(time() * 1000) - 3600
-	
+
 	# if f=0 is passed to the service, it returns the 25? most recent messages.
 	last_msgid = 0
 	message_parser = re.compile(
@@ -164,20 +164,18 @@ msg: The full message from the server, minus HTML tags.
 			('_', str(self.last_update)),
 			('f', str(self.last_msgid))
 		))
-		
+
 		fp = urlopen(self.feed + q)
 		data = json.load(fp)
 
 		self.last_msgid = data['IDstamp']
 		self.last_update = long(time() * 1000)
 
-		messages_sent = 0
 		if data['updated']:
 
 			# feed was updated, start posting.
 			messages = data['data'].split('<tr class="page">')
 			for message in messages[1:]:
-				#print message
 				result = self.message_parser.match(message)
 
 				# report back to the handler on what our status is.
@@ -185,7 +183,7 @@ msg: The full message from the server, minus HTML tags.
 					d = datetime.strptime(result.group('date'), '%d-%m-%y %H:%M:%S')
 				except:
 					d = result.group('date')
-				if result == None:
+				if result is None:
 					feed_handler(good_parse=False, msg=strip_tags(message))
 				else:
 					feed_handler(
@@ -207,6 +205,7 @@ Like update, except the feed is updated continuously forever.  Errors are handle
 				print ex
 			print "napping..."
 			sleep(self.update_frequency)
+
 
 # alternate servers for above
 class CFSPagerScraper2(CFSPagerUrgmsgScraper):

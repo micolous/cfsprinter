@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Test program for pager feed sources
-Copyright 2010 - 2013 Michael Farrell <http://micolous.id.au/>
+Copyright 2010 - 2015 Michael Farrell <http://micolous.id.au/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,9 +22,16 @@ from . import get_scraper
 
 parser = argparse.ArgumentParser()
 parser.add_argument('feed', metavar='FEED', nargs=1, help='Pager function to test')
-parser.add_argument('--update-frequency', metavar='SECS', default=30, type=int, help='Number of seconds to wait before updating again [default: %(default)s]')
+parser.add_argument(
+	'--update-frequency',
+	metavar='SECS',
+	default=30,
+	type=int,
+	help='Number of seconds to wait before updating again [default: %(default)s]'
+)
 
 options = parser.parse_args()
+
 
 def test_handler(good_parse, **message):
 	print "msg = %s" % message
