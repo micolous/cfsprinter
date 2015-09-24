@@ -43,7 +43,7 @@ __all__ = [
 
 
 class CFSPagerScraper(object):
-	feed = 'http://paging1.sacfs.org/livenosaas/ajax/update.php?f='
+	feed = 'http://paging1.sacfs.org/live/ajax/update.php?f='
 	last_update = int(time()) - 3600
 	message_parser = re.compile(
 		r'<td class="date">(?P<date>.+)</td>' +
@@ -210,7 +210,7 @@ Like update, except the feed is updated continuously forever.  Errors are handle
 # alternate servers for above
 class CFSPagerScraper2(CFSPagerUrgmsgScraper):
 	# paging2.sacfs.org uses the urgmsg protocol
-	feed = 'http://paging2.sacfs.org/livenosaas/ajax/update.php?f='
+	feed = 'http://paging2.sacfs.org/live/ajax/update.php?f='
 
 
 class CFSPagerScraper3(CFSPagerScraper):
