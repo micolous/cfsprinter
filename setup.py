@@ -6,7 +6,7 @@ requires = ['beautifulsoup4', 'configparser']
 
 if platform == 'win32':
 	try:
-		import py2exe
+		import py2exe  # nopep8
 	except ImportError:
 		print "Warning: py2exe is not installed. You will not be able to build py2exe"
 		print "targets without it!"
