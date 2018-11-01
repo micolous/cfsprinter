@@ -1,3 +1,8 @@
+# This repository is no longer active.
+
+**Please use [Shaggs' fork of this
+repository](https://github.com/Shaggs/cfsprinter).**
+
 # pagerprinter #
 
 A program to print out the South Australian Country Fire Service pager feeds.  It is written in an extensible way, so other backends can be plugged in to it.
